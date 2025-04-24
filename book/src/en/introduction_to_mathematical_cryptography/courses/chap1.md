@@ -134,12 +134,15 @@ Diffie‑Hellman, etc.
 
 Compute $\gcd(252,198)$ **and** a Bézout representation.
 
-| Step | $a$ | $b$ | $a\bmod b$ |
-|------|-----|-----|-----------|
-| 1    | 252 | 198 | 54 |
-| 2    | 198 | 54  | 36 |
-| 3    | 54  | 36  | 18 |
-| 4    | 36  | 18  | 0  |
+| Step | Dividend $a$ | Divisor $b$ | Quotient $q=\left\lfloor \frac{a}{b} \right\rfloor$ | Remainder $r = a \bmod b$ |
+|------|-------------|-------------|------------------------------------------------------|---------------------------|
+| 1    | 252         | 198         | 1                                                    | 54                        |
+| 2    | 198         | 54          | 3                                                    | 36                        |
+| 3    | 54          | 36          | 1                                                    | 18                        |
+| 4    | 36          | 18          | 2                                                    | 0                         |
+
+
+
 
 So $\gcd=18$.
 
@@ -147,13 +150,16 @@ _Rewind_:
 
 $$
 \begin{aligned}
-18 &= 54 - 36\\
-&= 54 - (198-54) = 2\cdot54 - 198\\
-&= 2(252 - 198) - 198 = 2\cdot252 - 3\cdot198.
+18 
+&= 54 - 36 \\
+&= 54 - \bigl(198 - 3\cdot 54\bigr)   &&\text{(since }36 = 198 - 3\cdot54\text{)} \\
+&= 4\cdot 54 - 198 \\
+&= 4\bigl(252 - 198\bigr) - 198      &&\text{(because }54 = 252 - 198\text{)} \\
+&= 4\cdot 252 - 5\cdot 198.
 \end{aligned}
 $$
 
-Hence Bézout coefficients $(x,y)=(2,-3)$.
+Hence Bézout coefficients $(x,y) = (4,-5)$.
 
 ---
 
