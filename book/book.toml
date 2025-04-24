@@ -1,0 +1,11 @@
+[book]
+language = "en"
+src = "src/en"
+title = "Exploring Cryptography with Rust"
+authors = ["Nolan CAROUGE"]
+
+[output.html]
+mathjax-support = false
+
+[preprocessor.katex]
+after = ["links"]

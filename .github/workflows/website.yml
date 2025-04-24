@@ -1,0 +1,51 @@
+name: Website
+
+on:
+  push:
+    branches: [ main ]        # rebuild & deploy at each push to main
+  workflow_dispatch:          # manual trigger
+
+permissions:
+  contents: read
+  pages:    write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: github-pages
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: cache-mdbook
+        uses: actions/cache@v3
+        with:
+          path: /usr/local/bin/mdbook
+          key: mdbook-binary-v0.4.45
+      - if: steps.cache-mdbook.outputs.cache-hit != 'true'
+        name: Install mdBook
+        run: |
+          MDVER=0.4.45
+          curl -fsSL https://github.com/rust-lang/mdBook/releases/download/v${MDVER}/mdbook-v${MDVER}-x86_64-unknown-linux-gnu.tar.gz \
+            | tar xz -C /usr/local/bin mdbook
+
+      - id: cache-katex
+        uses: actions/cache@v3
+        with:
+          path: ~/.cargo/bin/mdbook-katex
+          key: ${{ runner.os }}-mdbook-katex-${{ hashFiles('**/Cargo.lock') }}
+      - if: steps.cache-katex.outputs.cache-hit != 'true'
+        run: cargo install mdbook-katex
+
+      - run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Build English book
+        run: |
+          cd book
+          mdbook build                 # -> book/book/html/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: book/book/
+      - uses: actions/deploy-pages@v4

@@ -1,0 +1,8 @@
+[package]
+name        = "docs"
+version     = "0.1.0"
+edition     = "2021"
+description = "Support crate for generating and serving API documentation for the Exploring Cryptography with Rust project."
+authors     = ["Nolan CAROUGE <nolan.carouge.pro@gmail.com>"]
+
+[dependencies]

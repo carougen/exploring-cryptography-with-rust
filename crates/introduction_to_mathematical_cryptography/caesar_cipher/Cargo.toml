@@ -1,0 +1,9 @@
+[package]
+name = "caesar_cipher"
+version = "0.1.0"
+edition = "2024"
+license.workspace = true
+repository.workspace = true
+authors     = ["Nolan CAROUGE <nolan.carouge.pro@gmail.com>"]
+
+[dependencies]

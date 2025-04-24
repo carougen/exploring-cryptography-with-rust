@@ -1,0 +1,13 @@
+[package]
+name        = "fingerprint"
+version     = "0.1.0"
+edition     = "2021"
+description = "Reed–Solomon fingerprint generation and verification utilities using Lagrange interpolation in Rust."
+authors     = ["Nolan CAROUGE <nolan.carouge.pro@gmail.com>"]
+
+[dependencies]
+criterion = "0.5.1"
+
+[[bench]]
+name    = "fingerprint_bench"
+harness = false

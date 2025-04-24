@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "crates/proofs_arguments_zeroknowledge/fingerprint",
+    "crates/proofs_arguments_zeroknowledge/freivalds",
+    "crates/visualizer",
+    "crates/docs",
+    "crates/introduction_to_mathematical_cryptography/caesar_cipher",
+    "crates/introduction_to_mathematical_cryptography/substitution_cipher", "crates/introduction_to_mathematical_cryptography/xgcd",
+]
+resolver = "2"
+
+[workspace.package]
+license     = "MIT"
+repository  = "https://github.com/carougen/exploring-cryptography-with-rust"

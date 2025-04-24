@@ -1,0 +1,9 @@
+[package]
+name        = "visualizer"
+version     = "0.1.0"
+edition     = "2021"
+description = "Visualization tools for elliptic curves and other cryptographic constructs in Rust."
+authors     = ["Nolan CAROUGE <nolan.carouge.pro@gmail.com>"]
+
+[dependencies]
+plotters = { version = "0.3", default-features = false, features = ["svg_backend"] }

@@ -1,0 +1,48 @@
+name: API Docs
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Cache Cargo registry
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Cache target directory
+        uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-target-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build documentation
+        run: cargo doc --workspace --no-deps
+
+      - name: Redirect to docs crate by default
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=docs/index.html"></head><body></body></html>' > ./target/doc/index.html
+
+      - name: Deploy to external repo
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          external_repository: carougen/exploring-cryptography-docs
+          publish_dir: ./target/doc
+          publish_branch: gh-pages
+          deploy_key: ${{ secrets.DOCS_DEPLOY_KEY }}

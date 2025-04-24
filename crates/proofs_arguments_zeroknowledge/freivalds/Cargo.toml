@@ -1,0 +1,14 @@
+[package]
+name        = "freivalds"
+version     = "0.1.0"
+edition     = "2021"
+description = "Implementation of Freivalds’ probabilistic algorithm to verify matrix multiplication in Rust."
+authors     = ["Nolan CAROUGE <nolan.carouge.pro@gmail.com>"]
+
+[dependencies]
+rand = "0.9.1"
+criterion = "0.5.1"
+
+[[bench]]
+name    = "freivalds_bench"
+harness = false

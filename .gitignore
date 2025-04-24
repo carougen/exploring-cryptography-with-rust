@@ -1,0 +1,12 @@
+# Rust build artifacts
+/target/
+/**/target/
+
+# mdBook output
+/book/book/
+/book/src/SUMMARY.html
+
+# VSCode, IDEs, OS files
+.vscode/
+.idea/
+.DS_Store
