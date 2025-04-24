@@ -1,51 +1,74 @@
-//! Crate **`xgcd`** — elementary number-theory helpers.
+//! Crate **`xgcd`** — Elementary Number Theory Utilities
 //!
-//! Two public functions:
+//! This crate provides two core functions for integer arithmetic:
 //!
-//! * [`gcd`]  – greatest common divisor via Euclid’s algorithm
-//! * [`xgcd`] – extended version delivering the Bézout coefficients
-//!   `x` and `y` such that `a·x + b·y = gcd(a,b)`.
+//! - [`gcd`] — Computes the **Greatest Common Divisor (GCD)** using the classical Euclidean algorithm.
+//! - [`xgcd`] — Computes the **Extended GCD**, returning Bézout coefficients `x` and `y` such that:
 //!
-//! All arithmetic is done with `i128`, which already covers integers
-//! up to ≈ 10³⁸.  Replace the type with `num_bigint::BigInt` if you need
-//! arbitrary precision.
+//!   ```text
+//!   a*x + b*y = gcd(a, b)
+//!   ```
 //!
-//! # Quick example
-//! ```
+//! All arithmetic is performed with `i128`, suitable for integers up to ~10^38.
+//! For arbitrary-precision arithmetic, consider replacing `i128` with `num_bigint::BigInt`.
+//!
+//! ## Example Usage
+//!
+//! ```rust
 //! use xgcd::{gcd, xgcd};
 //!
-//! let (a, b) = (252_i128, 198);
-//!
+//! let (a, b) = (252, 198);
 //! assert_eq!(gcd(a, b), 18);
 //!
 //! let (d, x, y) = xgcd(a, b);
 //! assert_eq!(d, 18);
-//! assert_eq!(a * x + b * y, d); // Bézout check
+//! assert_eq!(a * x + b * y, d); // Bézout identity
 //! ```
 //!
+//! ## Development
+//!
+//! To run tests or examples:
 //! ```text
-//! cargo test               # run unit tests
-//! cargo run --example demo # small interactive demo
+//! cargo test -p xgcd               # Run unit tests
+//! cargo run -p xgcd --example xgcd # Run example
 //! ```
 
-/// Computes `gcd(a, b)` using the classical Euclidean algorithm.
+/// Computes the Greatest Common Divisor (GCD) of two integers `a` and `b`
+/// using the classical Euclidean algorithm.
 ///
-/// Complexity: **O(log min(a,b))** divisions.
+/// ## Complexity
+/// - Time: **O(log(min(a, b)))** divisions
+///
+/// ## Example
+/// ```
+/// use xgcd::gcd;
+/// assert_eq!(gcd(252, 198), 18);
+/// ```
 pub fn gcd(mut a: i128, mut b: i128) -> i128 {
     while b != 0 {
         let r = a % b;
         a = b;
         b = r;
     }
-    a.abs()
+    a.abs() // Ensure non-negative result
 }
 
-/// Extended Euclidean algorithm.
+/// Computes the Extended Euclidean Algorithm for integers `a` and `b`.
 ///
-/// Returns a triple **`(d, x, y)`** such that
-/// `d = gcd(a,b)` **and** `a·x + b·y = d`.
+/// Returns a tuple `(d, x, y)` where:
+/// - `d = gcd(a, b)`
+/// - `x` and `y` satisfy the Bézout identity: `a * x + b * y = d`
 ///
-/// Handy for modular inverses: if `gcd(a,n)=1`, then `x ≡ a⁻¹ (mod n)`.
+/// ## Applications
+/// Useful for computing **modular inverses**: if `gcd(a, n) = 1`, then `x ≡ a⁻¹ mod n`.
+///
+/// ## Example
+/// ```
+/// use xgcd::xgcd;
+/// let (d, x, y) = xgcd(252, 198);
+/// assert_eq!(d, 18);
+/// assert_eq!(252 * x + 198 * y, d);
+/// ```
 pub fn xgcd(mut a: i128, mut b: i128) -> (i128, i128, i128) {
     let (mut x0, mut y0, mut x1, mut y1) = (1, 0, 0, 1);
 
@@ -61,5 +84,6 @@ pub fn xgcd(mut a: i128, mut b: i128) -> (i128, i128, i128) {
         x1 = next_x;
         y1 = next_y;
     }
-    (a.abs(), x0, y0) // `a` might be negative; ensure gcd ≥ 0
+
+    (a.abs(), x0, y0) // Return positive GCD and corresponding coefficients
 }
