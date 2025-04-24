@@ -102,7 +102,6 @@ This project uses **mdBook v0.4.45** to ensure compatibility with `mdbook-katex`
   ```bash
   cargo install mdbook --version 0.4.45
   cargo install mdbook-katex
-  cargo install mdbook-i18n
   
   or
 
