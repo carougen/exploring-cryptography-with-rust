@@ -445,4 +445,3 @@ A brief overview of landmark ciphers throughout history and the key techniques t
   2. Encrypt the session key using the recipient’s **public key**.
   3. Encrypt the bulk data with the symmetric cipher using the session key.
 - **Benefit:** Achieves both performance and secure key distribution.
-
