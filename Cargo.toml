@@ -5,7 +5,7 @@ members = [
     "crates/visualizer",
     "crates/docs",
     "crates/introduction_to_mathematical_cryptography/caesar_cipher",
-    "crates/introduction_to_mathematical_cryptography/substitution_cipher", "crates/introduction_to_mathematical_cryptography/xgcd",
+    "crates/introduction_to_mathematical_cryptography/substitution_cipher", "crates/introduction_to_mathematical_cryptography/xgcd", "crates/introduction_to_mathematical_cryptography/modular_arithmetic",
 ]
 resolver = "2"
 
